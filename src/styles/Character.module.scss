@@ -1,0 +1,32 @@
+.character {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 32px;
+    margin: 20px;
+    background-color: #BCBDC0;
+
+    p {
+        width: 50%;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        padding: 4px;
+        border: none;
+        background-color: #ECE4B7;
+
+        svg {
+            margin-left: 10px;
+        }
+
+        &:hover {
+            transform: scale(1.02);
+            cursor: pointer;
+        }
+    }
+}

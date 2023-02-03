@@ -1,0 +1,19 @@
+.listing_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    h1 {
+        font-size: 30px;
+        color: #942911;
+        margin-bottom: 10px;
+    }
+
+    h2{
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
