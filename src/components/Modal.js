@@ -112,13 +112,13 @@ function Modal() {
               <div className={ModalStyle.modal_data}>
                 <p>Films:</p>
                 <p>
-                  {films
+                  {films.length > 1
                     ? films.map((film, id) =>
                         id === films.length - 1
                           ? film.data.title + "."
                           : film.data.title + ", "
                       )
-                    : ""}
+                    : "unknown"}
                 </p>
               </div>
               <div className={ModalStyle.modal_data}>
@@ -128,37 +128,37 @@ function Modal() {
               <div className={ModalStyle.modal_data}>
                 <p>Species:</p>
                 <p>
-                  {species
+                  {species.length > 1
                     ? species.map((species, id) =>
                         id === species.length - 1
                           ? species.data.name + "."
                           : species.data.name + ", "
                       )
-                    : ""}
+                    : "unknown"}
                 </p>
               </div>
               <div className={ModalStyle.modal_data}>
                 <p>Starships:</p>
                 <p>
-                  {starships
+                  {starships.length > 1
                     ? starships.map((starship, id) =>
                         id === starships.length - 1
                           ? starship.data.name + "."
                           : starship.data.name + ", "
                       )
-                    : ""}
+                    : "unknown"}
                 </p>
               </div>
               <div className={ModalStyle.modal_data}>
                 <p>Vehicles:</p>
                 <p>
-                  {vehicles
+                  {vehicles.length > 1
                     ? vehicles.map((vehicle, id) =>
                         id === vehicles.length - 1
                           ? vehicle.data.name + "."
                           : vehicle.data.name + ", "
                       )
-                    : ""}
+                    : "unknown"}
                 </p>
               </div>
             </>
