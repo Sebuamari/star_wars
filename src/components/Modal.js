@@ -7,77 +7,62 @@ import { useModalContext } from "../Context/ModalContext";
 
 function Modal() {
   const [showMoreData, setShowMoreData] = useState(false);
-  let films = [], species = [], vehicles = [], homeworld = [], starships = [];
+  const [films, setFilms] = useState([]);
+  const [species, setSpecies] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [homeworld, setHomeworld] = useState([]);
+  const [starships, setStarships] = useState([]);
   const { charactersData, setModalActive } = useModalContext();
 
   const getData = () => {
-    charactersData.films.map( (url) => {
-        axios
-            .get(url)
-            .then(function (response) {
-                films.push(response.data.title);
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })  
-    }) 
-      
-    // axios
-    //   .get(charactersData.homewolrd)
-    //   .then(function (response) {
-    //     console.log(response)
-    //     homeworld.push(response.data.title)
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })   
-      
-    // axios
-    //   .get(charactersData.species)
-    //   .then(function (response) {     
-    //     console.log(response)
-    //     species.push(response.data.title)
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
+    Promise.all(
+      charactersData.films
+        ? charactersData.films.map((url) => {
+            return axios.get(url);
+          })
+        : ""
+    ).then((response) => {
+      setFilms([...films, ...response]);
+    });
 
-    // axios
-    //   .get(charactersData.starships)
-    //   .then(function (response) {
-    //     console.log(response)
-    //     starships.push(response.data.title)
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
+    axios.get(charactersData.homeworld).then((response) => {
+      setHomeworld(response.data.name);
+    });
 
-    // axios
-    //   .get(charactersData.vehicles)
-    //   .then(function (response) {
-    //     console.log(response)
-    //     vehicles.push(response.data.title)
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
-      
+    Promise.all(
+      charactersData.species
+        ? charactersData.species.map((url) => {
+            return axios.get(url);
+          })
+        : ""
+    ).then((response) => {
+      setSpecies([...species, ...response]);
+    });
+
+    Promise.all(
+      charactersData.starships
+        ? charactersData.starships.map((url) => {
+            return axios.get(url);
+          })
+        : ""
+    ).then((response) => {
+      setStarships([...starships, ...response]);
+    });
+
+    Promise.all(
+      charactersData.vehicles
+        ? charactersData.vehicles.map((url) => {
+            return axios.get(url);
+          })
+        : ""
+    ).then((response) => {
+      setVehicles([...vehicles, ...response]);
+    });
   };
 
-  useEffect(() => {
-    if (showMoreData ) {
-        getData(); 
-    }
-  },[showMoreData])
-
-  useEffect(() => {
-    console.log(films)
-  },[films])
+  useEffect( () => {
+    getData();
+  },[])
 
   return (
     <div className={ModalStyle.modal}>
@@ -126,23 +111,55 @@ function Modal() {
             <>
               <div className={ModalStyle.modal_data}>
                 <p>Films:</p>
-                <p>{films ? films.map((film) => film) : ""}</p>
+                <p>
+                  {films
+                    ? films.map((film, id) =>
+                        id === films.length - 1
+                          ? film.data.title + "."
+                          : film.data.title + ", "
+                      )
+                    : ""}
+                </p>
               </div>
               <div className={ModalStyle.modal_data}>
                 <p>Homeworld:</p>
-                <p>{homeworld ? homeworld.map((world) => world) : ""}</p>
+                <p>{homeworld ? homeworld + "." : ""}</p>
               </div>
               <div className={ModalStyle.modal_data}>
                 <p>Species:</p>
-                <p>{species ? species.map((species) => species) : ""}</p>
+                <p>
+                  {species
+                    ? species.map((species, id) =>
+                        id === species.length - 1
+                          ? species.data.name + "."
+                          : species.data.name + ", "
+                      )
+                    : ""}
+                </p>
               </div>
               <div className={ModalStyle.modal_data}>
                 <p>Starships:</p>
-                <p>{starships ? starships.map((starship) => starship) : ""}</p>
+                <p>
+                  {starships
+                    ? starships.map((starship, id) =>
+                        id === starships.length - 1
+                          ? starship.data.name + "."
+                          : starship.data.name + ", "
+                      )
+                    : ""}
+                </p>
               </div>
               <div className={ModalStyle.modal_data}>
                 <p>Vehicles:</p>
-                <p>{vehicles ? vehicles.map((vehicle) => vehicle) : ""}</p>
+                <p>
+                  {vehicles
+                    ? vehicles.map((vehicle, id) =>
+                        id === vehicles.length - 1
+                          ? vehicle.data.name + "."
+                          : vehicle.data.name + ", "
+                      )
+                    : ""}
+                </p>
               </div>
             </>
           ) : (

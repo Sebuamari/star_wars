@@ -16,8 +16,8 @@ export const SearchProvider = ({ children }) => {
     const getData = () => {
       axios.get(STAR_WARS_API_URL + page)
           .then(function (response) {
-              setCharactersData(response.data.results);
-              console.log(response);
+
+            setCharactersData(response.data.results);
           })
           .catch(function (error) {
               // handle error

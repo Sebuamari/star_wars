@@ -13,6 +13,7 @@ export const ModalProvider = ({ children }) => {
           setModalActive,
           charactersData,
           setCharactersData,
+          
         }}
       >
         {children}
